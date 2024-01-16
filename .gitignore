@@ -1,0 +1,8 @@
+RiotApiController/RiotApiController.Api/bin/
+RiotApiController/RiotApiController.Api/obj/
+.vs
+RiotApiController/RiotApiController.Domain/obj/
+RiotApiController/RiotApiController.Domain/bin/
+RiotApiController/RiotApiController.UI/Properties/PublishProfiles/FolderProfile.pubxml
+RiotApiController/RiotApiController.Infrastructure/obj/
+RiotApiController/RiotApiController.Infrastructure/bin/
