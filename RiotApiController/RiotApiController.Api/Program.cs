@@ -1,7 +1,6 @@
 using RiotApiController.Api;
-using RiotApiController.Domain.Entities;
-using RiotApiController.Domain.Logics;
-using System.Text.Json;
+using RiotApiController.Domain;
+using RiotApiController.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,14 +13,8 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-try
-{
-    Shared.SettingEntity = JsonSerializerHelper.Deserialize<SettingEntity>("RiotApiController.json");
-}
-catch
-{
-    // donothing now
-}
+var settingFileRepository = Factories.CreateSettingFileRepository();
+Shared.SettingEntity = settingFileRepository.GetEntity();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

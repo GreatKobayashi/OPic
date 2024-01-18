@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RiotApiController.Domain;
 using RiotApiController.Domain.Entities;
 using RiotApiController.Infrastructure;
 using RiotSharp;
@@ -11,7 +12,7 @@ namespace RiotApiController.Api.Controllers
     [Route("[controller]")]
     public class OpicController : ControllerBase
     {
-        private string _apiKey = "RGAPI-53c86770-511a-43a6-8826-999deacd0239";
+        private string _apiKey = "RGAPI-0ecc78bf-5ddd-4121-80b7-5ef2184ebcb8";
 
         // Duster PuuID
         private string _puuId = "1YJ96H5Z9Gy7XVs-KlceM--D_GdxTmReFllNRQjdZPMNrcnJDTnBM3_c9SJ9oenNQTJL4i5vtbI7tg";
@@ -34,7 +35,7 @@ namespace RiotApiController.Api.Controllers
                     WonTeam = match.Info.Teams[0].Win ? 100 : 200
                 };
 
-                var database = Factories.CreateDatabaseAccessRepository();
+                var database = Factories.CreateDatabaseAccessRepository(Shared.SettingEntity.ConnectionString);
                 database.Update();
 
                 return JsonSerializer.Serialize(matchResult);

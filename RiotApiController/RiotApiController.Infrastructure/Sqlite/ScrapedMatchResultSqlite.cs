@@ -5,9 +5,16 @@ namespace RiotApiController.Infrastructure.Sqlite
 {
     public class ScrapedMatchResultSqlite : IDatabaseAccessRepository
     {
+        private string _connectionString;
+
+        public ScrapedMatchResultSqlite(string connectionString)
+        {
+            _connectionString = connectionString;
+        }
+
         public void Update()
         {
-            using (var connection = new SqliteConnection(""))
+            using (var connection = new SqliteConnection(_connectionString))
             {
                 connection.Open();
 

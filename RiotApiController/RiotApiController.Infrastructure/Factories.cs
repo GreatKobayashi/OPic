@@ -1,18 +1,20 @@
-﻿using RiotApiController.Domain.Repositories;
+﻿using RiotApiController.Domain.Entities;
+using RiotApiController.Domain.Repositories;
+using RiotApiController.Infrastructure.Json;
 using RiotApiController.Infrastructure.Sqlite;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RiotApiController.Infrastructure
 {
     public static class Factories
     {
-        public static IDatabaseAccessRepository CreateDatabaseAccessRepository()
+        public static IDatabaseAccessRepository CreateDatabaseAccessRepository(string connectionString)
         {
-            return new ScrapedMatchResultSqlite();
+            return new ScrapedMatchResultSqlite(connectionString);
+        }
+
+        public static ISettingFileRepository CreateSettingFileRepository()
+        {
+            return new SettingFileJson();
         }
     }
 }
