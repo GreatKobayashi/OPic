@@ -7,9 +7,9 @@ namespace RiotApiController.Infrastructure
 {
     public static class Factories
     {
-        public static IDatabaseAccessRepository CreateDatabaseAccessRepository(string connectionString)
+        public static IDatabaseAccessRepository CreateDatabaseAccessRepository()
         {
-            return new ScrapedMatchResultSqlite(connectionString);
+            return new ScrapedMatchResultSqlite();
         }
 
         public static ISettingFileRepository CreateSettingFileRepository()

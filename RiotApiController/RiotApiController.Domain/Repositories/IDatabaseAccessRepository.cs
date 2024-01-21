@@ -1,7 +1,10 @@
-﻿namespace RiotApiController.Domain.Repositories
+﻿using RiotApiController.Domain.Entities;
+
+namespace RiotApiController.Domain.Repositories
 {
     public interface IDatabaseAccessRepository
     {
-        public void Update();
+        public void Add(ScrapedMatchResultEntity scrapedMatchResultEntity);
+        public void AddRange(List<ScrapedMatchResultEntity> scrapedMatchResultEntities);
     }
 }

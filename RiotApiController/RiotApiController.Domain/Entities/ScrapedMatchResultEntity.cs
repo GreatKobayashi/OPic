@@ -10,9 +10,10 @@ namespace RiotApiController.Domain.Entities
         [Key]
         public long MatchId { get; set; }
         public string Version { get; set; }
+        public int AvarageRate { get; set; }
         public string[] Team1Champions { get; set; } = new string[5];
         public string[] Team2Champions { get; set; } = new string[5];
-        
+
         // team1=100, team2=200
         public int WonTeam { get; set; }
 
@@ -28,6 +29,6 @@ namespace RiotApiController.Domain.Entities
         public DbSet<ScrapedMatchResultEntity> Matchs { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-            => optionsBuilder.UseSqlite(@"server=localhost;database=hoge;userid=hoge;password=hoge;sslmode=none;");
+            => optionsBuilder.UseSqlite(Shared.SettingEntity.ConnectionString);
     }
 }

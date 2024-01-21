@@ -1,4 +1,3 @@
-using RiotApiController.Api;
 using RiotApiController.Domain;
 using RiotApiController.Infrastructure;
 

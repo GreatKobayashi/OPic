@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RiotApiController.Domain;
-using RiotApiController.Domain.Entities;
+using RiotApiController.Domain.Logics;
 using RiotApiController.Infrastructure;
 using RiotSharp;
-using RiotSharp.Misc;
 using System.Text.Json;
 
 namespace RiotApiController.Api.Controllers
@@ -12,7 +10,7 @@ namespace RiotApiController.Api.Controllers
     [Route("[controller]")]
     public class OpicController : ControllerBase
     {
-        private string _apiKey = "RGAPI-0ecc78bf-5ddd-4121-80b7-5ef2184ebcb8";
+        private string _apiKey = "RGAPI-32c8f53f-d108-4e35-9aaa-9d480a7d862c";
 
         // Duster PuuID
         private string _puuId = "1YJ96H5Z9Gy7XVs-KlceM--D_GdxTmReFllNRQjdZPMNrcnJDTnBM3_c9SJ9oenNQTJL4i5vtbI7tg";
@@ -23,22 +21,10 @@ namespace RiotApiController.Api.Controllers
             try
             {
                 var api = RiotApi.GetDevelopmentInstance(_apiKey);
-                var matchs = api.Match.GetMatchListAsync(Region.Asia, _puuId).Result;
+                var databaseRepository = Factories.CreateDatabaseAccessRepository();
+                ScrapingLogics.GetAndSaveMatchs(10, api, _puuId, databaseRepository);
 
-                var match = api.Match.GetMatchAsync(Region.Asia, matchs[0]).Result;
-                var participants = match.Info.Participants.Select(x => x.ChampionName).ToArray();
-
-                var matchResult = new ScrapedMatchResultEntity(match.Info.GameId, match.Info.GameVersion)
-                {
-                    Team1Champions = participants[0..5],
-                    Team2Champions = participants[5..10],
-                    WonTeam = match.Info.Teams[0].Win ? 100 : 200
-                };
-
-                var database = Factories.CreateDatabaseAccessRepository(Shared.SettingEntity.ConnectionString);
-                database.Update();
-
-                return JsonSerializer.Serialize(matchResult);
+                return JsonSerializer.Serialize("Done");
             }
             catch (RiotSharpException)
             {
